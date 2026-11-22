@@ -1,9 +1,7 @@
 # Age estimation from DNA methylation in blood
 
-An epigenetic clock built from public 450K methylation data in Python.
-I used this project to learn how DNA methylation is used for age estimation in
-forensic science, and to see how much accuracy is lost when a model with
-hundreds of CpG sites is reduced to the handful that forensic labs actually measure.
+Predicting age from DNA methylation (450K array) in Python, and comparing a
+full elastic net model with a small 5-CpG panel used in forensic studies.
 
 
 ## Data
@@ -42,12 +40,8 @@ Most samples are between 45 and 85 years old.
 
 ![ELOVL2 methylation vs age](figures/elovl2_vs_age.png)
 
-Without giving the analysis any prior knowledge, the CpG most correlated
-with age was cg16867657 in *ELOVL2* (r = 0.86), the best-known age marker in
-the literature. Its methylation rises from about 45% in the youngest people to
-about 80% in the oldest. Three of the other forensic panel CpGs (FHL2, C1orf132
-and TRIM59) were also in the top 10, along with further CpGs in *ELOVL2* and
-*FHL2* ([full list](results/top10_age_cpgs.csv)).
+The CpG most correlated with age was cg16867657 in *ELOVL2* (r = 0.86).
+FHL2, C1orf132 and TRIM59 CpGs from the forensic panel were also in the top 10 ([full list](results/top10_age_cpgs.csv)).
 
 ### A 5-CpG panel is almost as accurate as a 327-CpG model
 
@@ -59,11 +53,8 @@ and TRIM59) were also in the top 10, along with further CpGs in *ELOVL2* and
 | Forensic panel | 5 | 4.34 | 5.54 | 0.93 |
 | ELOVL2 only | 1 | 5.94 | 7.65 | 0.85 |
 
-The elastic net kept 327 of the 5,000 CpGs and predicted age with an average
-error of 3.7 years, similar to the 3.9 years reported for the original Hannum
-clock. Going from 327 CpGs to 5 cost only 0.7 years of accuracy, while a single
-CpG was clearly worse. For forensic work, where samples are small and only a few
-sites can be measured, this suggests a small panel is enough but one marker is not.
+The elastic net MAE is close to the 3.9 years reported for the Hannum model.
+The 5-CpG panel was 0.7 years worse; ELOVL2 alone was 2.3 years worse.
 
 ### Errors are larger in the oldest group
 
@@ -76,28 +67,22 @@ sites can be measured, this suggests a small panel is enough but one marker is n
 | 60–79 | 3.11 | 92 |
 | 80+ | 6.59 | 27 |
 
-The error roughly doubles over age 80, and the model tends to predict these
-people as younger than they are. Two likely reasons are that there are few very
-old people in the training data, and that methylation differs more between
-individuals as they age. In practice, an estimate for an older person would need
-a wider error margin.
+Error was about twice as high in the 80+ group, and ages in this group were
+mostly underestimated. There are relatively few samples over 80 in the
+training set.
 
 ### Samples cluster by plate
 
 ![PCA plot](figures/pca_plot.png)
 
-The first principal component (4.8% of the variance) separates the samples
-into two groups that follow the plate they were processed on, which points
-to a batch effect. PC1 is also correlated with age (r = −0.43), so age and
-plate may be partly confounded.
+Samples separate by processing plate along PC1 (4.8% of variance), so there
+is a batch effect. PC1 also correlates with age (r = −0.43).
 
 ## How to run
 
-Open `notebooks/epigenetic_clock.ipynb` in
-[Google Colab](https://colab.research.google.com/) and choose
-**Runtime → Run all**. The notebook downloads the data from GEO (about 1.2 GB)
-and runs on the free Colab tier. It uses numpy, pandas, matplotlib and
-scikit-learn, which are pre-installed in Colab.
+Open `notebooks/epigenetic_clock.ipynb` in Google Colab and run all cells.
+The data is downloaded from GEO. Works on the free Colab tier.
+Uses numpy, pandas, matplotlib and scikit-learn.
 
 ## Repository structure
 
