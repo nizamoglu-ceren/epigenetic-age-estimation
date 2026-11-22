@@ -92,17 +92,6 @@ into two groups that follow the plate they were processed on, which points
 to a batch effect. PC1 is also correlated with age (r = −0.43), so age and
 plate may be partly confounded.
 
-## Limitations
-
-- One dataset only; the test set comes from the same study and lab, so the
-  error on data from another lab is likely to be higher
-- Probes on the sex chromosomes and probes overlapping SNPs were not removed
-- The batch effect seen in the PCA was not corrected
-- Blood only and adults only; the model cannot be applied to other tissues
-  or to children
-- The forensic panel was originally measured by pyrosequencing; here the
-  nearest 450K probes were used as a proxy
-
 ## How to run
 
 Open `notebooks/epigenetic_clock.ipynb` in
