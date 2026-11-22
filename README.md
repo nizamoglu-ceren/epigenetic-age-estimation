@@ -19,8 +19,7 @@ I used the series matrix file, which the notebook downloads automatically.
 
 ![Age and beta value distributions](figures/age_and_beta_distribution.png)
 
-Most samples are between 45 and 85 years old; there are few people under 40
-and very few over 90.
+Most samples are between 45 and 85 years old.
 
 ## Methods
 
