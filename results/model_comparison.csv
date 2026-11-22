@@ -1,0 +1,4 @@
+model,n_cpgs,mae_years,rmse_years,r
+Elastic net,327,3.66,4.89,0.95
+Forensic panel,5,4.34,5.54,0.93
+ELOVL2 only,1,5.94,7.65,0.85

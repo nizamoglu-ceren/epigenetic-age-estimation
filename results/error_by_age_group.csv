@@ -1,0 +1,5 @@
+age_group,mean_abs_error_years,n_test_samples
+<40,2.98,11
+40-59,3.35,67
+60-79,3.11,92
+80+,6.59,27
